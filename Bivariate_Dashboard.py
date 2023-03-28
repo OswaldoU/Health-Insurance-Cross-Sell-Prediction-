@@ -3,6 +3,8 @@ import plotly.express as px
 import pandas as pd
 
 
+train = pd.read_csv('/Users/Oswal/Documents/GitHub/Health-Insurance-Cross-Sell-Prediction-/train.csv')
+
 def plot_charts(column):
     fig = px.histogram(train, x=column, color="Response", nbins=50, barmode="overlay", template="plotly_dark",
                        labels={'Response': 'Response', column: column})
