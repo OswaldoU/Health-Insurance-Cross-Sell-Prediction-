@@ -49,6 +49,7 @@ def calculate_averages(column):
     total = counts.sum(axis=1)
     response = counts[1]
     proportion = (response / total).round(2)
+    proportion.fillna(0, inplace=True)
     return proportion
 
 # Define the update_charts function
@@ -70,8 +71,10 @@ def update_charts(column):
                       yaxis_title_text='Count')
 
     # Generate the average response and no-response labels
-    avg_response_label = html.H3('Proportion of Responses for ' + column + ': ' + str(proportions[1]))
-    avg_no_response_label = html.H3('Proportion of No Responses for ' + column + ': ' + str(proportions[0]))
+    avg_response_rate = proportions[1]
+    avg_no_response_rate = proportions[0]
+    avg_response_label = html.H3('Proportion of Responses for ' + column + ': ' + str(avg_response_rate))
+    avg_no_response_label = html.H3('Proportion of No Responses for ' + column + ': ' + str(avg_no_response_rate))
 
     return fig, avg_response_label, avg_no_response_label
 
