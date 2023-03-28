@@ -12,9 +12,16 @@ train = pd.read_csv('/Users/Oswal/Documents/GitHub/Health-Insurance-Cross-Sell-P
 # Define a function to calculate the average response and no-response rates for a given column
 def calculate_averages(column):
     avg = train.groupby(column)['Response'].mean().reset_index()
-    avg_response = round(avg[avg['Response'] == 1]['Response'].iloc[0], 2)
-    avg_no_response = round(avg[avg['Response'] == 0]['Response'].iloc[0], 2)
+    if len(avg[avg['Response'] == 1]['Response']) == 0:
+        avg_response = 0
+    else:
+        avg_response = round(avg[avg['Response'] == 1]['Response'].iloc[0], 2)
+    if len(avg[avg['Response'] == 0]['Response']) == 0:
+        avg_no_response = 0
+    else:
+        avg_no_response = round(avg[avg['Response'] == 0]['Response'].iloc[0], 2)
     return avg_response, avg_no_response
+
 
 # Create the layout of the app
 app.layout = html.Div([
